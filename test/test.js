@@ -2,11 +2,10 @@
 
 var PalettoTestCase = TestCase("PalettoTestCase");
 
-
 PalettoTestCase = TestCase("TestCase");
 
 PalettoTestCase.prototype.test1 = function () {
-    assertTrue(emptyPlateau() === 0);
+    assertTrue(videPlateau() === 0);
 };
 
 PalettoTestCase.prototype.test2 = function () {
@@ -37,13 +36,23 @@ PalettoTestCase.prototype.test7 = function () {
 PalettoTestCase.prototype.test8 = function () {
     assertTrue(rotateTopLeft("anticlockwise") === true); //Rotation antiHorraire
     assertTrue(billeOnPlateau() === 2); //Rotation antiHorraire
-    //assertTrue(currentPlateau() === 2); //Rotation antiHorraire
-    console.log(billeOnPlateau());
-    console.log(currentPlateau());
-    
+    //assertTrue(currentPlateau("a1") === "white");
+
+    console.log(currentPlateau("a1"));
+    console.log(currentPlateau("a3"));
+    console.log(currentPlateau("c1"));
+
+    console.log(plateau);
+
+
 
 };
 
 
 
+PalettoTestCase.prototype.test9 = function () {
+
+    assertTrue(putBille("a1") === false); //On ne peut pas mettre en a1 car il y'a déjà une bille
+    assertTrue(currentPlayer() === "white"); //La main est toujours au joueur Blanc
+};
 

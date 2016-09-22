@@ -9,8 +9,8 @@ for (i = 0; i < 6; i++) {
     plateau[i] = new Array(6);
     tmpPlateau[i] = new Array(6);
     for (j = 0; j < 6; j++) {
-        plateau[i][j] = "empty";
-        tmpPlateau[i][j] = "empty";
+        plateau[i][j] = "vide";
+        tmpPlateau[i][j] = "vide";
     }
 }
 
@@ -20,7 +20,7 @@ var player;
 
 var charcodeA = parseInt("a".charCodeAt(0), 0);
 
-function emptyPlateau() {
+function videPlateau() {
     billeNumber = 0;
     return billeNumber;
 }
@@ -39,7 +39,7 @@ function putBille(position) {
     line = parseInt(position.charAt(1), 0) - 1;
     column = parseInt(position.charCodeAt(0), 0) - charcodeA;
 
-    if (plateau[line][column] === "empty") {
+    if (plateau[line][column] === "vide") {
         plateau[line][column] = currentPlayer();
         billeNumber++;
         return true;
@@ -51,19 +51,21 @@ function billeOnPlateau() {
     return billeNumber;
 }
 
-function currentPlateau() {
+// retourne la couleur de la position
+function currentPlateau(position) {
     var line, column;
     line = parseInt(position.charAt(1), 0) - 1;
     column = parseInt(position.charCodeAt(0), 0) - charcodeA;
 
-    for (line ; line < plateau.length; line++) {
-        for (var column = 0; column < plateau.length; column++) {
-            if(plateau[line][column] !== null || plateau[line][column] !== "" || plateau[line][column] !== 0){
-                return plateau[line][column];
-            }
-        }
+    /*
+     for (line ; line < plateau.length; line++) {
+     for (var column = 0; column < plateau.length; column++) {
+     if(plateau[line][column] !== null || plateau[line][column] !== "" || plateau[line][column] !== 0){*/
+    return plateau[line][column];
+    /*}
+     }
 
-    }
+     }*/
 }
 
 function replacePlateau() {
