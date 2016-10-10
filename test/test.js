@@ -42,13 +42,11 @@ PalettoTestCase.prototype.test8 = function () {
     assertTrue(e.billeOnPlateau() === 2); //Rotation antiHorraire
     assertTrue(e.currentPlateau("a1") === "white");
 
+    /* Test Affichage
     console.log("a1 : " + e.currentPlateau("a1"));
     console.log("a3 : " + e.currentPlateau("a3"));
-    console.log("c1 : " + e.currentPlateau("c1"));
-
     console.log(e.getPlateau());
-
-
+    */
 
 };
 
@@ -60,5 +58,43 @@ PalettoTestCase.prototype.test9 = function () {
 };
 
 
+PalettoTestCase.prototype.test10 = function () {
 
+    assertTrue(e.currentPlayer() === "white");
+    e.putBille("b1");
+    e.rotateTopLeft("clockwise");
 
+    assertTrue(e.currentPlayer() === "black");
+    e.putBille("a2");
+    e.rotateTopLeft("anticlockwise");
+
+    assertTrue(e.currentPlayer() === "white");
+    e.putBille("c1");
+    e.rotateTopLeft("clockwise");
+
+    assertTrue(e.currentPlayer() === "black");
+    e.putBille("a3");
+    e.rotateTopLeft("anticlockwise");
+
+    assertTrue(e.currentPlayer() === "white");
+    e.putBille("d1");
+    e.rotateTopRight("anticlockwise");
+
+    assertTrue(e.currentPlayer() === "black");
+    e.putBille("f3");
+    e.rotateTopRight("clockwise");
+
+    assertTrue(e.billeOnPlateau() === 8);
+
+    assertTrue(e.currentPlateau("a1") === "white");
+    assertTrue(e.currentPlateau("b1") === "white");
+    assertTrue(e.currentPlateau("c1") === "white");
+    assertTrue(e.currentPlateau("d1") === "white");
+
+    assertTrue(e.currentPlateau("a3") === "black");
+    assertTrue(e.currentPlateau("b3") === "black");
+    assertTrue(e.currentPlateau("c3") === "black");
+    assertTrue(e.currentPlateau("d3") === "black");
+
+    //console.log(e.getPlateau());
+};

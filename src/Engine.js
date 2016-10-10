@@ -1,16 +1,16 @@
 "use strict";
 var Engine = function () {
 
-    // private attributes and methods
     var plateau = new Array(6), tmpPlateau = new Array(6);
-    var i, j, lineAdd, columnAdd = 0;
+    var ligne, colonne, ligneAdd, colonneAdd = 0;
 
-    for (i = 0; i < 6; i++) {
-        plateau[i] = new Array(6);
-        tmpPlateau[i] = new Array(6);
-        for (j = 0; j < 6; j++) {
-            plateau[i][j] = "vide";
-            tmpPlateau[i][j] = "vide";
+    for (ligne = 0; ligne < 6; ligne += 1) {
+
+        plateau[ligne] = new Array(6);
+        tmpPlateau[ligne] = new Array(6);
+        for (colonne = 0; colonne < 6; colonne += 1) {
+            plateau[ligne][colonne] = "vide";
+            tmpPlateau[ligne][colonne] = "vide";
         }
     }
 
@@ -37,7 +37,7 @@ var Engine = function () {
 
         if (plateau[line][column] === "vide") {
             plateau[line][column] = this.currentPlayer();
-            billeNumber++;
+            billeNumber += 1;
             return true;
         }
         return false;
@@ -46,8 +46,6 @@ var Engine = function () {
     this.billeOnPlateau = function () {
         return billeNumber;
     };
-
-// retourne la couleur de la position
     this.currentPlateau = function (position) {
         var line, column;
         line = parseInt(position.charAt(1), 0) - 1;
@@ -62,9 +60,9 @@ var Engine = function () {
     };
 
     this.replacePlateau = function () {
-        for (i = 0; i < 6; i++) {
-            for (j = 0; j < 6; j++) {
-                plateau[i][j] = tmpPlateau[i][j];
+        for (ligne = 0; ligne < 6; ligne += 1) {
+            for (colonne = 0; colonne < 6; colonne += 1) {
+                plateau[ligne][colonne] = tmpPlateau[ligne][colonne];
             }
         }
     };
@@ -72,36 +70,36 @@ var Engine = function () {
 
 //Rotation
     this.rotate = function (l, c) {
-        lineAdd = l;
-        columnAdd = c;
-        tmpPlateau[lineAdd][2 + columnAdd] = plateau[lineAdd][columnAdd];
-        tmpPlateau[1 + lineAdd][2 + columnAdd] = plateau[lineAdd][1 + columnAdd];
-        tmpPlateau[2 + lineAdd][2 + columnAdd] = plateau[lineAdd][2 + columnAdd];
-        tmpPlateau[2 + lineAdd][1 + columnAdd] = plateau[1 + lineAdd][2 + columnAdd];
-        tmpPlateau[2 + lineAdd][columnAdd] = plateau[2 + lineAdd][2 + columnAdd];
-        tmpPlateau[1 + lineAdd][columnAdd] = plateau[2 + lineAdd][1 + columnAdd];
-        tmpPlateau[lineAdd][columnAdd] = plateau[2 + lineAdd][columnAdd];
-        tmpPlateau[lineAdd][1 + columnAdd] = plateau[1 + lineAdd][columnAdd];
+        ligneAdd = l;
+        colonneAdd = c;
+        tmpPlateau[ligneAdd][2 + colonneAdd] = plateau[ligneAdd][colonneAdd];
+        tmpPlateau[1 + ligneAdd][2 + colonneAdd] = plateau[ligneAdd][1 + colonneAdd];
+        tmpPlateau[2 + ligneAdd][2 + colonneAdd] = plateau[ligneAdd][2 + colonneAdd];
+        tmpPlateau[2 + ligneAdd][1 + colonneAdd] = plateau[1 + ligneAdd][2 + colonneAdd];
+        tmpPlateau[2 + ligneAdd][colonneAdd] = plateau[2 + ligneAdd][2 + colonneAdd];
+        tmpPlateau[1 + ligneAdd][colonneAdd] = plateau[2 + ligneAdd][1 + colonneAdd];
+        tmpPlateau[ligneAdd][colonneAdd] = plateau[2 + ligneAdd][colonneAdd];
+        tmpPlateau[ligneAdd][1 + colonneAdd] = plateau[1 + ligneAdd][colonneAdd];
     };
 
     this.rotateInverse = function (l, c) {
-        lineAdd = l;
-        columnAdd = c;
-        tmpPlateau[lineAdd][columnAdd] = plateau[lineAdd][2 + columnAdd];
-        tmpPlateau[lineAdd][1 + columnAdd] = plateau[1 + lineAdd][2 + columnAdd];
-        tmpPlateau[lineAdd][2 + columnAdd] = plateau[2 + lineAdd][2 + columnAdd];
-        tmpPlateau[1 + lineAdd][2 + columnAdd] = plateau[2 + lineAdd][1 + columnAdd];
-        tmpPlateau[2 + lineAdd][2 + columnAdd] = plateau[2 + lineAdd][columnAdd];
-        tmpPlateau[2 + lineAdd][1 + columnAdd] = plateau[1 + lineAdd][columnAdd];
-        tmpPlateau[2 + lineAdd][columnAdd] = plateau[lineAdd][columnAdd];
-        tmpPlateau[1 + lineAdd][columnAdd] = plateau[lineAdd][1 + columnAdd];
+        ligneAdd = l;
+        colonneAdd = c;
+        tmpPlateau[ligneAdd][colonneAdd] = plateau[ligneAdd][2 + colonneAdd];
+        tmpPlateau[ligneAdd][1 + colonneAdd] = plateau[1 + ligneAdd][2 + colonneAdd];
+        tmpPlateau[ligneAdd][2 + colonneAdd] = plateau[2 + ligneAdd][2 + colonneAdd];
+        tmpPlateau[1 + ligneAdd][2 + colonneAdd] = plateau[2 + ligneAdd][1 + colonneAdd];
+        tmpPlateau[2 + ligneAdd][2 + colonneAdd] = plateau[2 + ligneAdd][colonneAdd];
+        tmpPlateau[2 + ligneAdd][1 + colonneAdd] = plateau[1 + ligneAdd][colonneAdd];
+        tmpPlateau[2 + ligneAdd][colonneAdd] = plateau[ligneAdd][colonneAdd];
+        tmpPlateau[1 + ligneAdd][colonneAdd] = plateau[ligneAdd][1 + colonneAdd];
     };
 
     this.rotateTopLeft = function (direction) {
         if (direction === "clockwise") {
-            this.rotateInverse(0, 0);
-        } else {
             this.rotate(0, 0);
+        } else {
+            this.rotateInverse(0, 0);
         }
         this.replacePlateau();
         turn += 1;
@@ -110,11 +108,33 @@ var Engine = function () {
 
     this.rotateTopRight = function (direction) {
         if (direction === "clockwise") {
-            this.rotateInverse(0, 3);
-        } else {
             this.rotate(0, 3);
+        } else {
+            this.rotateInverse(0, 3);
         }
         this.replacePlateau();
+        turn += 1;
+        return true;
+    };
+
+
+    this.rotateBotLeft = function (direction) {
+        if (direction === "clockwise") {
+            this.rotate(3, 0);
+        } else {
+            this.rotateInverse(3, 0);
+        }
+        this.replaceBoard();
+        turn += 1;
+        return true;
+    };
+
+    this.rotateBotRight = function (direction) {
+        if (direction === "clockwise") {
+            this.rotate(3, 3);
+        } else {
+            this.rotateInverse(3, 3);
+        }
         turn += 1;
         return true;
     };
@@ -123,4 +143,4 @@ var Engine = function () {
     this.getPlateau = function () {
         return plateau;
     };
-}
+};
