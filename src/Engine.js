@@ -38,14 +38,12 @@ var Engine = function () {
         if (plateau[line][column] === "vide") {
             plateau[line][column] = this.currentPlayer();
             billeNumber += 1;
+            turn += 1;
             return true;
         }
         return false;
     };
 
-    this.billeOnPlateau = function () {
-        return billeNumber;
-    };
     this.currentPlateau = function (position) {
         var line, column;
         line = parseInt(position.charAt(1), 0) - 1;
@@ -102,7 +100,7 @@ var Engine = function () {
             this.rotateInverse(0, 0);
         }
         this.replacePlateau();
-        turn += 1;
+        //turn += 1;
         return true;
     };
 
@@ -113,7 +111,7 @@ var Engine = function () {
             this.rotateInverse(0, 3);
         }
         this.replacePlateau();
-        turn += 1;
+        //turn += 1;
         return true;
     };
 
@@ -125,7 +123,7 @@ var Engine = function () {
             this.rotateInverse(3, 0);
         }
         this.replaceBoard();
-        turn += 1;
+       //turn += 1;
         return true;
     };
 
@@ -135,12 +133,35 @@ var Engine = function () {
         } else {
             this.rotateInverse(3, 3);
         }
-        turn += 1;
+        //turn += 1;
         return true;
     };
+
+    this.win = function () {
+        ligne =  0;
+        colonne =  0;
+        var compteur = 0;
+
+        for (ligne; ligne < 6; ligne += 1) {
+            if ((plateau[ligne][colonne] && plateau[ligne][colonne + 1] && plateau[ligne][colonne + 2] && plateau[ligne][colonne + 3] && plateau[ligne][colonne + 4]) === this.currentPlayer()) {
+                return "Player " + this.currentPlayer() + " WIN !";
+            }
+            for (colonne; colonne < 6; colonne += 1) {
+                if ((plateau[ligne][colonne] && plateau[ligne + 1][colonne] && plateau[ligne + 2][colonne] && plateau[ligne + 3][colonne] && plateau[ligne + 4][colonne]) === this.currentPlayer()) {
+                    return "Player " + this.currentPlayer() + " WIN !";
+                }
+            }
+        }
+    };
+
+
 
 
     this.getPlateau = function () {
         return plateau;
+    };
+
+    this.getBilleNumber = function () {
+        return billeNumber;
     };
 };
